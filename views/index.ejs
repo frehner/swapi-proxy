@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SWAPI Proxy</title>
+</head>
+<body>
+    <style>
+        .error {
+            background-color: red;
+        }
+        .message {
+            padding: 5px;
+        }
+        .table {
+            border-spacing: 0;
+        }
+        .table__body {
+            vertical-align: top;
+        }
+        .table__cell {
+            padding: 5px;
+            text-transform: capitalize;
+        }
+        .table__row:nth-child(odd) {
+            background-color: lightgray;
+        }
+        .warning {
+            background-color: yellow;
+        }
+    </style>
+    <% if(typeof error !== 'undefined') { %>
+        <section class="error message">Sorry, there was an error!</section>
+    <% } %>
+    <% if(results.length === 0) { %>
+        <section class="warning message">Sorry, no one found with that name</section>
+    <% } else { %>
+        <table class="table">
+            <tr class="table__row">
+                <% Object.keys(results[0]).map(key => { %>
+                    <th class="table__cell">
+                        <%= key.replace("_", " ") %>
+                    </th>
+                <% }) %>
+            </tr>
+            <% results.map(result => { %>
+                <tr class="table__row">
+                    <% Object.keys(result).map(key => { %>
+                        <td class="table__cell table__body">
+                            <%- Array.isArray(result[key]) ? result[key].join('<br>') : result[key]; %>
+                        </td>
+                    <% }) %>
+                </tr>
+            <% }) %>
+        </table>
+    <% } %>
+</body>
+</html>
