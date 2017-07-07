@@ -1,6 +1,16 @@
 # Star Wars API Proxy - using AWS Lambda and API Gateway
 
-Proxy calls to the [Star Wars API](https://swapi.co)
+Proxy calls to the [Star Wars API](https://swapi.co) using AWS API Gateway + Lambda + NodeJS Express framework.
+
+## Endpoints (aka requirements)
+* `/character/:name` - Returns an EJS view (nothing too fancy) with data about the given character. (Needs to work with at least 'luke', 'han', 'leia', and 'rey')
+* `/characters` - Returns raw JSON of 50 characters (doesn't matter which 50). This endpoint should be able to take a query parameter in the URL called 'sort' and the potential sort parameters will be 1 of the following, ['name', 'mass', 'height']  So the endpoint '/characters?sort=height' should return JSON of 50 characters sorted by their height. 
+* `/planetresidents` - Return raw JSON in the form {planetName1: [characterName1, characterName2], planetName2: [characterName3]}. So it is an object where the keys are the planet names, and the values are lists of residents names for that planet
+
+## Scripts
+* `npm start` - local development server. Uses nodemon for restarting on changes. The bulk of your work happens in `app.js` 
+* `npm run package-deploy` - to deploy any changes. Uses CloudFormation to create the API Gateway and Lambda function, and will provide the URL to which calls can be made. Be sure to run the setup scripts first (see step 2 in [Steps for running the example](#steps-for-running-the-example))
+* `npm run local` - emulate API Gateway with your local server. Modify the `api-gateway-event.json` file to format the emulated payload
 
 ## Source
 
